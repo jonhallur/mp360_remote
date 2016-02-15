@@ -54,7 +54,8 @@ if (Meteor.isClient) {
 }
 
 if (Meteor.isServer) {
-  var wiring = Meteor.npmRequire("wiring-pi");
+  //var wiring = Meteor.npmRequire("wiring-pi");
+  var wiring = null;
   Meteor.startup(function () {
     Meteor.methods({
       set_pin_state: function (pin_high, pin_low) {

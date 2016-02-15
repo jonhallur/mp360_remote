@@ -4,6 +4,12 @@ const UP = '_up';
 const DOWN = '_down';
 const LEFT = '_left';
 const RIGHT = '_right';
+const OPPOSITE = {
+  UP: DOWN,
+  DOWN: UP,
+  LEFT: RIGHT,
+  RIGHT: LEFT
+};
 
 function SetRemoteState(remote, highState, lowState) {
   if (highState !== null) {
@@ -13,6 +19,26 @@ function SetRemoteState(remote, highState, lowState) {
     Session.set('remote_' + remote + lowState, 0);
   }
 
+}
+function getRemoteStates() {
+  return {
+    remote_1_up: Session.get('remote_1_up'),
+    remote_2_up: Session.get('remote_2_up'),
+    remote_3_up: Session.get('remote_3_up'),
+    remote_4_up: Session.get('remote_4_up'),
+    remote_1_down: Session.get('remote_1_down'),
+    remote_2_down: Session.get('remote_2_down'),
+    remote_3_down: Session.get('remote_3_down'),
+    remote_4_down: Session.get('remote_4_down'),
+    remote_1_left: Session.get('remote_1_left'),
+    remote_2_left: Session.get('remote_2_left'),
+    remote_3_left: Session.get('remote_3_left'),
+    remote_4_left: Session.get('remote_4_left'),
+    remote_1_right: Session.get('remote_1_right'),
+    remote_2_right: Session.get('remote_2_right'),
+    remote_3_right: Session.get('remote_3_right'),
+    remote_4_right: Session.get('remote_4_right')
+  };
 }
 if (Meteor.isClient) {
   // counter starts at 0
@@ -78,10 +104,25 @@ if (Meteor.isClient) {
   });
 
   Template.remotes.events({
-    'click button': function () {
-      // increment the counter when button is clicked
-      Session.set('counter', Session.get('counter') + 1);
+    'mousedown .remote': function (event) {
+      var remote_num = event.target.id[7];
+      var remote_action = event.target.id.substr(8);
+      SetRemoteState(remote_num, remote_action, OPPOSITE[remote_action]);
+      Meteor.call("updateStatus", getRemoteStates());
     },
+    'mouseup .remote': function (event) {
+      var remote_num = event.target.id[7];
+      var remote_action = event.target.id.substr(8);
+      SetRemoteState(remote_num, null, remote_action);
+      Meteor.call("updateStatus", getRemoteStates());
+    },
+    'mouseleave .remote': function () {
+      var remote_num = event.target.id[7];
+      var remote_action = event.target.id.substr(8);
+      SetRemoteState(remote_num, null, remote_action);
+      Meteor.call("updateStatus", getRemoteStates());
+    },
+
     'keydown': function (event) {
       var remote_1 = Settings.findOne({ name: 'remote_1' });
       var remote_2 = Settings.findOne({ name: 'remote_2' });
@@ -125,13 +166,16 @@ if (Meteor.isClient) {
         case remote_3.right_key:
           SetRemoteState(3, RIGHT, LEFT);
           break;
+
       }
+      Meteor.call("updateStatus", getRemoteStates());
       event.preventDefault();
 
     },
     'keyup': function (event) {
       var remote_1 = Settings.findOne({ name: 'remote_1' });
       var remote_2 = Settings.findOne({ name: 'remote_2' });
+      var remote_3 = Settings.findOne({ name: 'remote_3' });
       switch (event.keyCode) {
         case remote_1.up_key:
           SetRemoteState(1, null, UP);
@@ -170,6 +214,7 @@ if (Meteor.isClient) {
           SetRemoteState(3, null, RIGHT);
           break;
       }
+      Meteor.call("updateStatus", getRemoteStates());
       event.preventDefault();
     }
   });
@@ -219,8 +264,22 @@ if (Meteor.isServer) {
     )
   }
   Meteor.startup(function () {
-    Meteor.methods(
-      ""
-    )
-  });
+    Meteor.methods({
+      'updateStatus': function (remoteStates) {
+        var remotes = ['remote_1', 'remote_2', 'remote_3'];
+        remotes.forEach( function (remote) {
+          var settings = Settings.findOne( {name: remote} );
+          var up_status = remoteStates[remote + UP];
+          var down_status = remoteStates[remote + DOWN];
+          var left_status = remoteStates[remote + LEFT];
+          var right_status = remoteStates[remote + RIGHT];
+          var up_pin = settings.up_pin;
+          var down_pin = settings.down_pin;
+          var left_pin = settings.left_pin;
+          var right_pin = settings.right_pin;
+
+        });
+      }
+    });
+  })
 }
