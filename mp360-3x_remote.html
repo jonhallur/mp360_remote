@@ -1,0 +1,71 @@
+<head>
+  <title>mp360-3x_remote</title>
+</head>
+
+<body>
+  {{> remotes}}
+</body>
+
+<template name="remotes">
+    <h1>MP-360 Wireless Remote</h1>
+    <input type="text" placeholder="Put mouse cursor here for keyboard control">
+        <div class="remote_box">
+            <h3>{{remote_1.display_name}}</h3>
+            <div class="button_box">
+                <button id="remote_1_up">UP</button>
+                <div class="{{remote_1_up_state}}"></div>
+            </div>
+            <div class="button_box">
+                <button id="remote_1_left">LEFT</button>
+                <div class="{{remote_1_left_state}}"></div>
+            </div>
+            <div class="button_box">
+                <button id="remote_1_right">RIGHT</button>
+                <div class="{{remote_1_right_state}}"></div>
+            </div>
+            <div class="button_box">
+                <button id="remote_1_down">DOWN</button>
+                <div class="{{remote_1_down_state}}"></div>
+            </div>
+        </div>
+
+    <div class="remote_box">
+        <h3>{{remote_2.display_name}}</h3>
+        <div class="button_box">
+            <button id="remote_2_up">UP</button>
+            <div class="{{remote_2_up_state}}"></div>
+        </div>
+        <div class="button_box">
+            <button id="remote_2_left">LEFT</button>
+            <div class="{{remote_2_left_state}}"></div>
+        </div>
+        <div class="button_box">
+            <button id="remote_2_right">RIGHT</button>
+            <div class="{{remote_2_right_state}}"></div>
+        </div>
+        <div class="button_box">
+            <button id="remote_2_down">DOWN</button>
+            <div class="{{remote_2_down_state}}"></div>
+        </div>
+    </div>
+
+    <div class="remote_box">
+        <h3>{{remote_3.display_name}}</h3>
+        <div class="button_box">
+            <button id="remote_3_up">UP</button>
+            <div class="{{remote_3_up_state}}"></div>
+        </div>
+        <div class="button_box">
+            <button id="remote_3_left">LEFT</button>
+            <div class="{{remote_3_left_state}}"></div>
+        </div>
+        <div class="button_box">
+            <button id="remote_3_right">RIGHT</button>
+            <div class="{{remote_3_right_state}}"></div>
+        </div>
+        <div class="button_box">
+            <button id="remote_3_down">DOWN</button>
+            <div class="{{remote_3_down_state}}"></div>
+        </div>
+    </div>
+</template>
