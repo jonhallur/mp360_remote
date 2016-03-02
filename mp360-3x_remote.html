@@ -3,14 +3,14 @@
 </head>
 
 <body>
-  {{> remotes}}
+  {{> one_remote}}
 </body>
 
 <template name="remotes">
     <h1>MP-360 Wireless Remote</h1>
     <input type="text" placeholder="Put mouse cursor here for keyboard control">
         <div class="remote_box">
-            <h3>{{remote_1.display_name}}</h3>
+            <h2>{{remote_1.display_name}}</h2>
             <div class="button_box">
                 <button class="remote" id="remote_1_up">UP</button>
                 <div class="{{remote_1_up_state}}"></div>
@@ -30,7 +30,7 @@
         </div>
 
     <div class="remote_box">
-        <h3>{{remote_2.display_name}}</h3>
+        <h2>{{remote_2.display_name}}</h2>
         <div class="button_box">
             <button class="remote" id="remote_2_up">UP</button>
             <div class="{{remote_2_up_state}}"></div>
@@ -50,7 +50,7 @@
     </div>
 
     <div class="remote_box">
-        <h3>{{remote_3.display_name}}</h3>
+        <h2>{{remote_3.display_name}}</h2>
         <div class="button_box">
             <button class="remote" id="remote_3_up">UP</button>
             <div class="{{remote_3_up_state}}"></div>
@@ -69,3 +69,4 @@
         </div>
     </div>
 </template>
+

@@ -54,6 +54,7 @@ if (Meteor.isClient) {
   Session.setDefault('remote_3_down', 0);
   Session.setDefault('remote_3_left', 0);
   Session.setDefault('remote_3_right', 0);
+  Session.setDefault('show_settings', false);
 
   Template.remotes.helpers({
     remote_1: function () {
@@ -239,7 +240,7 @@ if (Meteor.isServer) {
       {
         "name": "remote_2",
         "display_name": "Remote 2",
-	"right_pin": 5,
+	      "right_pin": 5,
         "right_key": 39,
         "up_pin": 6,
         "up_key": 38,
@@ -264,7 +265,24 @@ if (Meteor.isServer) {
     )
   }
   Meteor.startup(function () {
-    var wiring = Meteor.npmRequire("wiring-pi");
+    var wiring;
+    try {
+      wiring = Meteor.npmRequire("wiring-pi");
+    }
+    catch (err){
+      wiring = Object();
+      wiring.digitalWrite = function(pin, value) {
+        console.log("digital Write on pin: " + pin + " value: " + value );
+      };
+      wiring.pinMode = function(pin, mode) {
+        console.log("pin mode pin: " + pin + " to mode: " + mode );
+      };
+      wiring.wiringPiSetupGpio = function() {
+        console.log("pin mode set to gpio");
+      }
+
+    }
+
     wiring.wiringPiSetupGpio();
     var remotes = ['remote_1', 'remote_2', 'remote_3'];
     remotes.forEach( function (remote) {
@@ -285,22 +303,10 @@ if (Meteor.isServer) {
         var remotes = ['remote_1', 'remote_2', 'remote_3'];
         remotes.forEach( function (remote) {
           var settings = Settings.findOne( {name: remote} );
-          var up_status = remoteStates[remote + UP];
-          var down_status = remoteStates[remote + DOWN];
-          var left_status = remoteStates[remote + LEFT];
-          var right_status = remoteStates[remote + RIGHT];
-          var up_pin = settings.up_pin;
-          var down_pin = settings.down_pin;
-          var left_pin = settings.left_pin;
-          var right_pin = settings.right_pin;
-
-          wiring.digitalWrite(up_pin, up_status);
-          //console.log("wrote state " + up_status + " on pin " + up_pin);
-          wiring.digitalWrite(down_pin, down_status);
-          wiring.digitalWrite(left_pin, left_status);
-          wiring.digitalWrite(right_pin, right_status);
-
-
+          wiring.digitalWrite(settings.up_pin, remoteStates[remote + UP]);
+          wiring.digitalWrite(settings.down_pin, remoteStates[remote + DOWN]);
+          wiring.digitalWrite(settings.left_pin, remoteStates[remote + LEFT]);
+          wiring.digitalWrite(settings.right_pin, remoteStates[remote + RIGHT]);
         });
       }
     });
