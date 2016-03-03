@@ -44,4 +44,9 @@ body {
     background-color: #4AB;
     border-radius: 50%;
     box-shadow: #000 0 -1px 7px 1px, inset #006 0 -1px 9px, #06F 0 2px 14px;
-}/* CSS declarations go here */
+
+}
+
+.settings_form {
+    display: none;
+}

@@ -1,0 +1,37 @@
+<template name="settings">
+    <button class="show_settings_button">Show Settings</button>
+    <button>Allow edit</button>
+    <div class="settings_form">
+        {{#each remotes_settings}}
+            {{> setting}}
+        {{/each}}
+    </div>
+
+</template>
+
+<template name="setting">
+    <form id="{{name}}">
+        <h3>{{display_name}}</h3>
+        <div class="settings_pins">
+            <label for="{{name}}_up_pin">Up pin:</label>
+            <input type="text" name="{{name}}_up_pin" value="{{up_pin}}" readonly/>
+            <label for="{{name}}_down_pin">Down pin:</label>
+            <input type="text" name="{{name}}_down_pin" value="{{down_pin}}" readonly/>
+            <label for="{{name}}_left_pin">Left pin:</label>
+            <input type="text" name="{{name}}_left_pin" value="{{left_pin}}" readonly/>
+            <label for="{{name}}_right_pin">Right pin:</label>
+            <input type="text" name="{{name}}_right_pin" value="{{right_pin}}" readonly/>    
+        </div>
+
+        <div class="settings_keys">
+            <label for="{{name}}_up_key">Up key:</label>
+            <input type="text" name="{{name}}_up_key" value="{{up_key}}" readonly/>
+            <label for="{{name}}_down_key">Down key:</label>
+            <input type="text" name="{{name}}_down_key" value="{{down_key}}" readonly/>
+            <label for="{{name}}_left_key">Left key:</label>
+            <input type="text" name="{{name}}_left_key" value="{{left_key}}" readonly/>
+            <label for="{{name}}_right_key">Right key:</label>
+            <input type="text" name="{{name}}_right_key" value="{{right_key}}" readonly/>
+        </div>
+    </form>
+</template>

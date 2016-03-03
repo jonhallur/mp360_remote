@@ -1,0 +1,36 @@
+<template name="one_remote">
+    <div class="container">
+        <div class="row spacer">
+            <h3>Remote {{selected_remote}} </h3>
+        </div>
+        <div class="row spacer">
+            <input type="text" placeholder="Put mouse cursor here for keyboard control">
+        </div>
+
+        <div class="row spacer">
+            <div class="btn-group" role="group" aria-label="...">
+                <button id="select_remote_1" type="button" class="{{remote_1_active}} remote_selector btn btn-default">Remote 1</button>
+                <button id="select_remote_2" type="button" class="{{remote_2_active}} remote_selector btn btn-default">Remote 2</button>
+                <button id="select_remote_3" type="button" class="{{remote_3_active}} remote_selector btn btn-default">Remote 3</button>
+            </div>
+        </div>
+
+        <div class="row spacer">
+            <div class="btn-group-lg" role="group" aria-label="...">
+                <button id="button_left" type="button" class="btn btn-default {{key_left_state}}" aria-label="Move Left">
+                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                </button>
+                <button id="button_up" type="button" class="btn btn-default {{key_up_state}}" aria-label="Move Up">
+                    <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+                </button>
+                <button id="button_down" type="button" class="btn btn-default {{key_down_state}}" aria-label="Move Down">
+                    <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+                </button>
+                <button id="button_right" type="button" class="btn btn-default {{key_right_state}}" aria-label="Move Right">
+                    <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+</template>
