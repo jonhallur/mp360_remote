@@ -145,9 +145,37 @@ if( Meteor.isClient ) {
       return Session.get(BUTTON_RIGHT) ? "active" : "";
     }
   });
+  
   Template.one_remote.events({
-
-    'mouseup .remote_selector': function (event) {
+    'mouseleave #button_up': function (event) {
+      if (Session.get(BUTTON_UP) === 1) {
+        Session.set(BUTTON_UP, 0);
+        Meteor.call("updateStatus", Session.get("selected_remote"), getRemoteStates());
+      }
+      event.preventDefault();
+    },
+    'mouseleave #button_down': function (event) {
+      if (Session.get(BUTTON_DOWN) === 1) {
+        Session.set(BUTTON_DOWN, 0);
+        Meteor.call("updateStatus", Session.get("selected_remote"), getRemoteStates());
+      }
+      event.preventDefault();
+    },
+    'mouseleave #button_left': function (event) {
+      if (Session.get(BUTTON_LEFT) === 1) {
+        Session.set(BUTTON_LEFT, 0);
+        Meteor.call("updateStatus", Session.get("selected_remote"), getRemoteStates());
+      }
+      event.preventDefault();
+    },
+    'mouseleave #button_right': function (event) {
+      if (Session.get(BUTTON_RIGHT) === 1) {
+        Session.set(BUTTON_RIGHT, 0);
+        Meteor.call("updateStatus", Session.get("selected_remote"), getRemoteStates());
+      }
+      event.preventDefault();
+    },
+    'mousedown .remote_selector': function (event) {
       var remote_number = parseInt(event.target.id[14]);
       Session.set("selected_remote", remote_number);
       resetKeyStates();
