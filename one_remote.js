@@ -143,6 +143,9 @@ if( Meteor.isClient ) {
     },
     key_right_state: function () {
       return Session.get(BUTTON_RIGHT) ? "active" : "";
+    },
+    remotes_active: function () {
+      return "active";
     }
   });
 

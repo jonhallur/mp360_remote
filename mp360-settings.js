@@ -13,6 +13,9 @@ if (Meteor.isClient) {
     },
     remotes: function () {
       return Remotes.find({});
+    },
+    settings_active: function () {
+      return "active";
     }
   });
 
