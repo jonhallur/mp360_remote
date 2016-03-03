@@ -14,15 +14,6 @@ if (Meteor.isClient) {
   });
 
   Template.settings.events({
-    'click .show_settings_button': function (event) {
-      var show_settings = Session.get('show_settings');
-      Session.set('show_settings', !show_settings);
-      if (show_settings === false) {
-        $('.settings_form').css({display: 'block'})
-      } else {
-        $('.settings_form').css({display: 'none'})
-      }
-      console.log("click button");
-    }
+
   })
 }

@@ -145,7 +145,7 @@ if( Meteor.isClient ) {
       return Session.get(BUTTON_RIGHT) ? "active" : "";
     }
   });
-  
+
   Template.one_remote.events({
     'mouseleave #button_up': function (event) {
       if (Session.get(BUTTON_UP) === 1) {
