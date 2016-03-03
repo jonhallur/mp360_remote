@@ -299,7 +299,14 @@ if( Meteor.isClient ) {
       last_key_pressed = null;
       event.preventDefault();
     }
-  })
+  });
+
+  Router.route('/', function () {
+    this.render('one_remote');
+  });
+  Router.route('/settings', function () {
+    this.render('settings');
+  });
 }
 
 if (Meteor.isServer) {

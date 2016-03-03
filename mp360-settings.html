@@ -1,37 +1,48 @@
 <template name="settings">
-    <button class="show_settings_button">Show Settings</button>
-    <button>Allow edit</button>
-    <div class="settings_form">
-        {{#each remotes_settings}}
-            {{> setting}}
-        {{/each}}
+    <div class="container">
+        <div class="row">
+            {{#each remotes}}
+                {{> remote}}
+            {{/each}}
+        </div>
     </div>
-
 </template>
 
-<template name="setting">
-    <form id="{{name}}">
+<template name="remote">
+    <div id="remote_{{index}}" class="col-md-3">
         <h3>{{display_name}}</h3>
         <div class="settings_pins">
-            <label for="{{name}}_up_pin">Up pin:</label>
-            <input type="text" name="{{name}}_up_pin" value="{{up_pin}}" readonly/>
-            <label for="{{name}}_down_pin">Down pin:</label>
-            <input type="text" name="{{name}}_down_pin" value="{{down_pin}}" readonly/>
-            <label for="{{name}}_left_pin">Left pin:</label>
-            <input type="text" name="{{name}}_left_pin" value="{{left_pin}}" readonly/>
-            <label for="{{name}}_right_pin">Right pin:</label>
-            <input type="text" name="{{name}}_right_pin" value="{{right_pin}}" readonly/>    
+            <div class="input-group">
+                <span class="input-group-addon glyphicon glyphicon-arrow-up" aria-hidden="true" style="top: 0px"></span>
+                <input class="form-control" type="number" id="{{index}}_up_pin" value="{{buttons.up.pin}}" readonly/>
+                <div class="input-group-addon" style="min-width: 44px;">{{buttons.up.pin}}</div>
+            </div>
+            <br>
+            <div class="input-group">
+                <span class="input-group-addon glyphicon glyphicon-arrow-down" aria-hidden="true" style="top: 0px"></span>
+                <input class="form-control" type="number" id="{{index}}_down_pin" value="{{buttons.down.pin}}" readonly/>
+                <div class="input-group-addon" style="min-width: 44px;">{{buttons.down.pin}}</div>
+            </div>
+            <br>
+            <div class="input-group">
+                <span class="input-group-addon glyphicon glyphicon-arrow-left" aria-hidden="true" style="top: 0px"></span>
+                <input class="form-control" type="number" id="{{index}}_left_pin" value="{{buttons.left.pin}}" readonly/>
+                <div class="input-group-addon" style="min-width: 44px;">{{buttons.left.pin}}</div>
+            </div>
+            <br>
+            <div class="input-group">
+                <span class="input-group-addon glyphicon glyphicon-arrow-right" aria-hidden="true" style="top: 0px"></span>
+                <input class="form-control" type="number" id="{{index}}_right_pin" value="{{buttons.right.pin}}" readonly/>
+                <div class="input-group-addon" style="min-width: 44px;">{{buttons.right.pin}}</div>
+            </div>
+            <br>
+            <button id="{{index}}_save_button" class="btn btn-danger btn-lg save-button" disabled>
+                <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+            </button>
+            <button id="{{index}}_edit_button" class="btn btn-primary btn-lg edit-button">
+                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+            </button>
         </div>
-
-        <div class="settings_keys">
-            <label for="{{name}}_up_key">Up key:</label>
-            <input type="text" name="{{name}}_up_key" value="{{up_key}}" readonly/>
-            <label for="{{name}}_down_key">Down key:</label>
-            <input type="text" name="{{name}}_down_key" value="{{down_key}}" readonly/>
-            <label for="{{name}}_left_key">Left key:</label>
-            <input type="text" name="{{name}}_left_key" value="{{left_key}}" readonly/>
-            <label for="{{name}}_right_key">Right key:</label>
-            <input type="text" name="{{name}}_right_key" value="{{right_key}}" readonly/>
-        </div>
-    </form>
+    </div>
+    <div class="col-md-1"></div>
 </template>
