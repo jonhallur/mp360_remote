@@ -264,51 +264,5 @@ if (Meteor.isServer) {
       }
     )
   }
-  Meteor.startup(function () {
-    var wiring;
-    try {
-      wiring = Meteor.npmRequire("wiring-pi");
-    }
-    catch (err){
-      wiring = Object();
-      wiring.digitalWrite = function(pin, value) {
-        console.log("digital Write on pin: " + pin + " value: " + value );
-      };
-      wiring.pinMode = function(pin, mode) {
-        console.log("pin mode pin: " + pin + " to mode: " + mode );
-      };
-      wiring.wiringPiSetupGpio = function() {
-        console.log("pin mode set to gpio");
-      }
 
-    }
-
-    wiring.wiringPiSetupGpio();
-    var remotes = ['remote_1', 'remote_2', 'remote_3'];
-    remotes.forEach( function (remote) {
-      var settings = Settings.findOne( {name: remote} );
-      wiring.pinMode(settings.up_pin, wiring.OUTPUT);
-      wiring.pinMode(settings.down_pin, wiring.OUTPUT);
-      wiring.pinMode(settings.left_pin, wiring.OUTPUT);
-      wiring.pinMode(settings.right_pin, wiring.OUTPUT);
-      wiring.digitalWrite(settings.up_pin, 0);
-      wiring.digitalWrite(settings.down_pin, 0);
-      wiring.digitalWrite(settings.left_pin, 0);
-      wiring.digitalWrite(settings.right_pin, 0);
-    });
-
-
-    Meteor.methods({
-      'updateStatus': function (remoteStates) {
-        var remotes = ['remote_1', 'remote_2', 'remote_3'];
-        remotes.forEach( function (remote) {
-          var settings = Settings.findOne( {name: remote} );
-          wiring.digitalWrite(settings.up_pin, remoteStates[remote + UP]);
-          wiring.digitalWrite(settings.down_pin, remoteStates[remote + DOWN]);
-          wiring.digitalWrite(settings.left_pin, remoteStates[remote + LEFT]);
-          wiring.digitalWrite(settings.right_pin, remoteStates[remote + RIGHT]);
-        });
-      }
-    });
-  })
 }
