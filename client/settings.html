@@ -1,0 +1,49 @@
+<template name="settings">
+    <div class="container">
+        <div class="row">
+            {{#each remotes}}
+                {{> remote}}
+            {{/each}}
+        </div>
+    </div>
+</template>
+
+<template name="remote">
+    <div id="remote_{{index}}" class="col-md-2">
+        <h3>{{display_name}}</h3>
+        <h5>RPi Pins</h5>
+        <div class="settings_pins">
+            <div class="input-group">
+                <span class="input-group-addon glyphicon glyphicon-arrow-up" aria-hidden="true" style="top: 0px" data-toggle="tooltip" title="Up"></span>
+                <input class="form-control" type="number" id="{{index}}_up_pin" value="{{buttons.up.pin}}" readonly/>
+                <div class="input-group-addon" style="min-width: 44px;">{{buttons.up.pin}}</div>
+            </div>
+            <br>
+            <div class="input-group">
+                <span class="input-group-addon glyphicon glyphicon-arrow-down" aria-hidden="true" style="top: 0px" data-toggle="tooltip" title="Down"></span>
+                <input class="form-control" type="number" id="{{index}}_down_pin" value="{{buttons.down.pin}}" readonly/>
+                <div class="input-group-addon" style="min-width: 44px;">{{buttons.down.pin}}</div>
+            </div>
+            <br>
+            <div class="input-group">
+                <span class="input-group-addon glyphicon glyphicon-arrow-left" aria-hidden="true" style="top: 0px" data-toggle="tooltip" title="Left"></span>
+                <input class="form-control" type="number" id="{{index}}_left_pin" value="{{buttons.left.pin}}" readonly/>
+                <div class="input-group-addon" style="min-width: 44px;">{{buttons.left.pin}}</div>
+            </div>
+            <br>
+            <div class="input-group">
+                <span class="input-group-addon glyphicon glyphicon-arrow-right" aria-hidden="true" style="top: 0px" data-toggle="tooltip" title="Right"></span>
+                <input class="form-control" type="number" id="{{index}}_right_pin" value="{{buttons.right.pin}}" readonly/>
+                <div class="input-group-addon" style="min-width: 44px;">{{buttons.right.pin}}</div>
+            </div>
+            <br>
+            <button id="{{index}}_save_button" class="btn btn-default btn-lg save-button" data-toggle="tooltip" title="Save" disabled>
+                <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+            </button>
+            <button id="{{index}}_edit_button" class="btn btn-primary btn-lg edit-button" data-toggle="toottip" title="Edit">
+                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+            </button>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+</template>

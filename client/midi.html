@@ -1,0 +1,22 @@
+<template name="midi">
+    <div class="container">
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="midiDropDownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Midi inputs
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="midiDropDownMenu">
+                {{#each midi_inputs}}
+                    {{> midi_input}}
+                {{/each}}
+            </ul>
+        </div>
+        Selected midi input: {{selected_midi_input_name}}
+        <br>
+        Midi is {{midi_available}}
+    </div>
+</template>
+
+<template name="midi_input">
+    <li id="{{id}}"><a class="midi-input" href="#">{{name}}</a></li>
+</template>
