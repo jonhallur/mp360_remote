@@ -33,8 +33,9 @@ Meteor.startup(function () {
       remote.buttons.left.pin,
       remote.buttons.right.pin
     ].forEach( function (pin) {
-        wiring.pinMode(pin, wiring.OUTPUT);
-        wiring.digitalWrite(pin, 0);
+        var pin_num = parseInt(pin);
+        wiring.pinMode(pin_num, wiring.OUTPUT);
+        wiring.digitalWrite(pin_num, 0);
       });
   });
 
@@ -43,14 +44,15 @@ Meteor.startup(function () {
       Remotes.find({}).forEach( function(remote) {
         if (remote.index === selected) {
           Object.keys(remote.buttons).forEach( function (button) {
-            var pin = remote.buttons[button].pin;
+            var pin = parseInt(remote.buttons[button].pin);
             var state = states[button];
-            wiring.digitalWrite(pin, state);
+            wiring.digitalWrite(parseInt(pin), state);
           });
         }
         else {
           Object.keys(remote.buttons).forEach( function (button) {
-            wiring.digitalWrite(remote.buttons[button].pin, 0);
+            var pin_num = parseInt(remote.buttons[button].pin);
+            wiring.digitalWrite(pin_num, 0);
           })
         }
       });
