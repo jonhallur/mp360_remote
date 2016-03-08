@@ -4,6 +4,13 @@ if (Remotes.find().count() === 0) {
   Remotes.insert(remote_two);
   Remotes.insert(remote_three);
 }
+if (RemoteMidiSettings.find().count() === 0) {
+  midi_settings = {
+    cameras: [camera_one_settings, camera_two_settings, camera_three_settings],
+    buttons: [remote_button_up_settings, remote_button_down_settings, remote_button_left_settings, remote_button_right_settings]
+  };
+  RemoteMidiSettings.insert(midi_settings);
+}
 Meteor.startup(function () {
   var wiring;
   try {
@@ -26,7 +33,6 @@ Meteor.startup(function () {
 
   wiring.wiringPiSetupGpio();
   Remotes.find({}).forEach( function (remote) {
-    //console.log(remote);
     [
       remote.buttons.up.pin,
       remote.buttons.down.pin,

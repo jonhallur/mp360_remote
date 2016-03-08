@@ -14,7 +14,6 @@ Template.midi.onRendered(function () {
 
 Template.midi.helpers({
   midi_inputs: function () {
-    console.log(Session.get("midi_inputs"));
     return Session.get("midi_inputs");
   },
   selected_midi_input_name: function () {
@@ -22,6 +21,9 @@ Template.midi.helpers({
   },
   midi_available: function () {
     return Session.get("midi_available") ? "available" : "not available";
+  },
+  midi_settings: function () {
+    return Settings.findOne({});
   }
 });
 
@@ -46,7 +48,6 @@ Template.midi.events({
             input.value.onmidimessage = null;
           }
         }
-
       }, null);
     }
   }
